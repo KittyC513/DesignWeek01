@@ -41,10 +41,11 @@ public class MonsterBehavior : MonoBehaviour
         /*Leaf goToPatrol = new Leaf("Go To Patrol", GoToPatrol);*/
         Leaf goToAttack = new Leaf("Go To Attack", GoToAttack);
 
-        /*Selector IfAttack = new Selector("Attack Player");
+        /*
+        Selector selectAction = new Selector("Select action to do");
 
-        IfAttack.AddChild(goToPatrol);
-        IfAttack.AddChild(goToAttack);
+        selectAction.AddChild(goToAttack);
+        selectAction.AddChild(goToPatrol);
         */
         patrol.AddChild(goToItem01);
         patrol.AddChild(goToItem02);
@@ -74,15 +75,6 @@ public class MonsterBehavior : MonoBehaviour
         return IfAttack(player);
     }
      
-    /*public Node.Status GoToPatrol()
-    {
-        Debug.Log("Go To Patrol");
-
-    
-    }
-    */
-
-
 
     public Node.Status GoToItem01()
     {
