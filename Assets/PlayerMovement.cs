@@ -16,6 +16,34 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 moveDirection;
 
+    GameObject respawn;
+
+    public GameObject[] monsterPrefab;
+
+
+    public float radius;
+
+    public bool isSpawned;
+
+    public float spawnTime;
+    public float spawnDelay;
+
+    public int startWait;
+    public float spawnWait;
+
+    public float minTime;
+    public float maxTime;
+
+    Vector3 randomPos;
+    int randMonster;
+
+    public int spawnCount;
+
+    public int amountOfMonster;
+
+
+
+
 
 
 
@@ -26,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = this.GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        StartCoroutine(waitSpawner());
     }
 
     private void MovementInput()
@@ -42,6 +71,10 @@ public class PlayerMovement : MonoBehaviour
     {
         MovementInput();
         rb.drag = groundDrag;
+
+        //respawn = GameObject.FindWithTag("Respawn");
+        spawnWait = Random.Range(minTime, maxTime);
+
     }
 
     private void FixedUpdate()
@@ -54,5 +87,57 @@ public class PlayerMovement : MonoBehaviour
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection.normalized * speed, ForceMode.Force);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Monster"))
+        {
+            Destroy(other.gameObject);
+            amountOfMonster--;
+        }
+        
+        if (amountOfMonster <= 0)
+        {
+            StartCoroutine(waitSpawner());
+        }
+
+    }
+
+    private void SpawnFunction()
+    {
+
+        randomPos = Random.insideUnitSphere * radius;
+        randomPos += this.transform.position;
+        randomPos.y = 0.3f;
+
+        Vector3 direction = randomPos - this.transform.position;
+        direction.Normalize();
+
+        float dotProduct = Vector3.Dot(this.transform.forward, direction);
+        float dotProductAngle = Mathf.Acos(dotProduct / this.transform.forward.magnitude * direction.magnitude);
+
+        randomPos.x = Mathf.Cos(dotProductAngle) * radius + this.transform.position.x;
+        randomPos.z = Mathf.Sin(dotProductAngle * (Random.value > 0.5 ? 1f : -1f)) * radius + this.transform.position.z;
+
+    }
+
+
+    IEnumerator waitSpawner()
+    {
+
+        yield return new WaitForSeconds(startWait);
+        SpawnFunction();
+
+        for (int count = spawnCount; count > 0; count--)
+        {
+            GameObject monster = Instantiate(monsterPrefab[randMonster], randomPos, Quaternion.identity);
+            monster.transform.position = randomPos;
+            amountOfMonster++;
+
+            yield return new WaitForSeconds(spawnWait);
+        }
+
     }
 }
