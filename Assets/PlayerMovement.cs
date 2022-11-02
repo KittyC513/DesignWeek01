@@ -96,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag.Equals("Monster"))
         {
             Destroy(other.gameObject);
-            if (amountOfMonster >= spawnCount)
+            if (amountOfMonster <= spawnCount)
             {
                 spawnCount++;
                 StartCoroutine(waitSpawner());
