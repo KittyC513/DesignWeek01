@@ -30,7 +30,7 @@ public class MonsterSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(waitSpawner());
+       StartCoroutine(waitSpawner());
     }
 
     // Update is called once per frame
