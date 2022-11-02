@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         //respawn = GameObject.FindWithTag("Respawn");
         spawnWait = Random.Range(minTime, maxTime);
 
-
     }
 
     private void FixedUpdate()
@@ -96,12 +95,14 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag.Equals("Monster"))
         {
             Destroy(other.gameObject);
-            if (amountOfMonster <= spawnCount)
-            {
-                spawnCount++;
-                StartCoroutine(waitSpawner());
-            }
+            amountOfMonster--;
         }
+        
+        if (amountOfMonster <= 0)
+        {
+            StartCoroutine(waitSpawner());
+        }
+
     }
 
     private void SpawnFunction()
@@ -134,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject monster = Instantiate(monsterPrefab[randMonster], randomPos, Quaternion.identity);
             monster.transform.position = randomPos;
             amountOfMonster++;
+
             yield return new WaitForSeconds(spawnWait);
         }
 
