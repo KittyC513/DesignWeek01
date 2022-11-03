@@ -143,6 +143,8 @@ GameObject:
   - component: {fileID: 4416099592216943264}
   - component: {fileID: 4416099592216943269}
   - component: {fileID: 4416099592216943268}
+  - component: {fileID: 7604840382965627182}
+  - component: {fileID: 7703519586535272879}
   - component: {fileID: 4416099592216943271}
   m_Layer: 0
   m_Name: Player
@@ -166,7 +168,7 @@ Transform:
   - {fileID: 4416099590549205652}
   - {fileID: 4416099591635623546}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4416099592216943266
 MeshFilter:
@@ -241,12 +243,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 4416099592216943327}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a172c0e1a73a2d4d81273f29252ed9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0936bd4c9bdbeef4fb1cd16799790316, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDrag: 0.5
+  groundDrag: 0.2
   orientation: {fileID: 4416099591635623546}
   speed: 10
+  monsterPrefab: []
+  radius: 10
+  isSpawned: 0
+  spawnTime: 0
+  spawnDelay: 0
+  startWait: 1
+  spawnWait: 0
+  minTime: 5
+  maxTime: 20
+  spawnCount: 1
+  amountOfMonster: 0
 --- !u!54 &4416099592216943268
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -263,6 +276,40 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &7604840382965627182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416099592216943327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd8794c72eac654e917afe084a63d9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collection: 4
+  numOfC: 4
+  collections: []
+  found: {fileID: 21300000, guid: 1860b8b0d84fe5f4ebc0570efc7100bb, type: 3}
+  unfound: {fileID: 21300000, guid: 8dd8f86295422fe4b9466745bc0a92ee, type: 3}
+--- !u!114 &7703519586535272879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416099592216943327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 781dec87237f5244d879a60b41af0bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  numOfHearts: 3
+  hearts: []
+  fullHeart: {fileID: 21300000, guid: 53e8337fe89f6c24785609451a23dfaf, type: 3}
+  emptyHeart: {fileID: 21300000, guid: 08705c5b7db949247a53c3becbb87961, type: 3}
 --- !u!114 &4416099592216943271
 MonoBehaviour:
   m_ObjectHideFlags: 0

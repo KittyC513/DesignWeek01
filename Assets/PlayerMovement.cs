@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement: MonoBehaviour
 {
 
     public float groundDrag;
@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         MovementInput();
         rb.drag = groundDrag;
 
-        //respawn = GameObject.FindWithTag("Respawn");
+        respawn = GameObject.FindWithTag("Respawn");
         spawnWait = Random.Range(minTime, maxTime);
 
     }
@@ -90,19 +90,22 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    
+     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag.Equals("Monster"))
+        if (other.gameObject.tag.Equals("Monster") && Input.GetKey(KeyCode.F))
         {
             Destroy(other.gameObject);
-            amountOfMonster--;
+            Debug.Log("You Stun a Monster");
+            //this.GetComponent<Health>().health--;
+            StartCoroutine(waitSpawner());
         }
-        
+        /*
         if (amountOfMonster <= 0)
         {
             StartCoroutine(waitSpawner());
         }
-
+        */
     }
 
     private void SpawnFunction()
@@ -134,10 +137,11 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject monster = Instantiate(monsterPrefab[randMonster], randomPos, Quaternion.identity);
             monster.transform.position = randomPos;
-            amountOfMonster++;
-
+            //amountOfMonster++;
             yield return new WaitForSeconds(spawnWait);
         }
 
-    }
+    } 
+    
+
 }

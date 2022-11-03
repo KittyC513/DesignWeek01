@@ -24,4 +24,15 @@ public class MonsterMovement : MonoBehaviour
 
 
     }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag.Equals("Frame") && Input.GetKeyDown(KeyCode.F))
+        {
+            Destroy(this.gameObject);
+
+        }
+        
+    }
 }
